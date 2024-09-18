@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, SectionList } from 'react-native';
 
 const menuItemsToDisplay = [
   {
@@ -59,10 +59,16 @@ const MenuItems = () => {
 
   return (
     <View style={menuStyles.container}>
-      <FlatList
-        data={menuItemsToDisplay}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}></FlatList>
+      <SectionList
+        sections={menuItemsToDisplay}
+        keyExtractor={(item, index) => item + index}
+        renderItem={renderItem}
+        renderSectionHeader={({ section: { title } }) => (
+          <View style={menuStyles.titleContainer}>
+            <Text style={menuStyles.titleText}>{title}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 };
